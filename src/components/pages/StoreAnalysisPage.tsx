@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Star, AlertTriangle, Award, MessageSquare, ThumbsDown, Clock } from 'lucide-react';
+import { GlobalFilters } from '../layout/GlobalFilters';
 import { AIInsightCard } from '../dashboard/AIInsightCard';
 import { RatingDistributionStackedChart } from '../charts/RatingDistributionStackedChart';
 import { StoreHealthBubbleChart } from '../charts/StoreHealthBubbleChart';
@@ -103,6 +104,7 @@ export function StoreAnalysisPage() {
 
   return (
     <div className="space-y-6">
+      <GlobalFilters />
       <AIInsightCard summary={aiSummary} />
 
       <div className="grid grid-cols-6 gap-4">

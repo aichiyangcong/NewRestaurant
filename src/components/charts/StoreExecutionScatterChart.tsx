@@ -119,6 +119,10 @@ export function StoreExecutionScatterChart({ data, onStoreClick }: StoreExecutio
           type: 'scatter',
           data: seriesData.filter((d) => d.riskLevel === 'risk'),
           symbolSize: 12,
+          itemStyle: {
+            color: '#ef4444',
+            opacity: 0.8,
+          },
           emphasis: {
             focus: 'self',
             itemStyle: {
@@ -132,6 +136,10 @@ export function StoreExecutionScatterChart({ data, onStoreClick }: StoreExecutio
           type: 'scatter',
           data: seriesData.filter((d) => d.riskLevel === 'normal'),
           symbolSize: 12,
+          itemStyle: {
+            color: '#3b82f6',
+            opacity: 0.8,
+          },
           emphasis: {
             focus: 'self',
             itemStyle: {
@@ -145,6 +153,10 @@ export function StoreExecutionScatterChart({ data, onStoreClick }: StoreExecutio
           type: 'scatter',
           data: seriesData.filter((d) => d.riskLevel === 'advantage'),
           symbolSize: 12,
+          itemStyle: {
+            color: '#22c55e',
+            opacity: 0.8,
+          },
           emphasis: {
             focus: 'self',
             itemStyle: {
