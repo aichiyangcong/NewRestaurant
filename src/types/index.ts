@@ -157,12 +157,22 @@ export interface QSCVTagL2 {
   name: string;
   count: number;
   children: QSCVTagL3[];
+  topStores: Array<{
+    storeId: string;
+    storeName: string;
+    count: number;
+  }>;
 }
 
 export interface QSCVTagL1 {
   name: string;
   count: number;
   children: QSCVTagL2[];
+  topStores: Array<{
+    storeId: string;
+    storeName: string;
+    count: number;
+  }>;
 }
 
 export interface SentimentData {

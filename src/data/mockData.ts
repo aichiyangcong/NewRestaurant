@@ -287,10 +287,12 @@ export function generateContentAnalysisData(stores: Store[], reviews: Review[]):
     {
       name: '口味',
       count: 450,
+      topStores: generateTopStores(stores, 450),
       children: [
         {
           name: '味道',
           count: 280,
+          topStores: generateTopStores(stores, 280),
           children: [
             {
               name: '太咸',
@@ -312,6 +314,7 @@ export function generateContentAnalysisData(stores: Store[], reviews: Review[]):
         {
           name: '菜品质量',
           count: 170,
+          topStores: generateTopStores(stores, 170),
           children: [
             {
               name: '分量不足',
@@ -330,10 +333,12 @@ export function generateContentAnalysisData(stores: Store[], reviews: Review[]):
     {
       name: '服务',
       count: 320,
+      topStores: generateTopStores(stores, 320),
       children: [
         {
           name: '服务态度',
           count: 180,
+          topStores: generateTopStores(stores, 180),
           children: [
             {
               name: '服务员玩手机',
@@ -350,6 +355,7 @@ export function generateContentAnalysisData(stores: Store[], reviews: Review[]):
         {
           name: '上菜速度',
           count: 140,
+          topStores: generateTopStores(stores, 140),
           children: [
             {
               name: '等待时间过长',
@@ -368,10 +374,12 @@ export function generateContentAnalysisData(stores: Store[], reviews: Review[]):
     {
       name: '环境',
       count: 180,
+      topStores: generateTopStores(stores, 180),
       children: [
         {
           name: '卫生状况',
           count: 110,
+          topStores: generateTopStores(stores, 110),
           children: [
             {
               name: '桌面脏',
@@ -388,6 +396,7 @@ export function generateContentAnalysisData(stores: Store[], reviews: Review[]):
         {
           name: '就餐环境',
           count: 70,
+          topStores: generateTopStores(stores, 70),
           children: [
             {
               name: '太吵',
@@ -406,10 +415,12 @@ export function generateContentAnalysisData(stores: Store[], reviews: Review[]):
     {
       name: '性价比',
       count: 150,
+      topStores: generateTopStores(stores, 150),
       children: [
         {
           name: '价格',
           count: 100,
+          topStores: generateTopStores(stores, 100),
           children: [
             {
               name: '价格虚高',
@@ -426,6 +437,7 @@ export function generateContentAnalysisData(stores: Store[], reviews: Review[]):
         {
           name: '优惠活动',
           count: 50,
+          topStores: generateTopStores(stores, 50),
           children: [
             {
               name: '活动规则复杂',

@@ -1,10 +1,9 @@
 import { useState, useMemo } from 'react';
-import { Lightbulb, TrendingUp, TrendingDown, Minus } from 'lucide-react';
+import { Lightbulb } from 'lucide-react';
 import { QSCVDrillDownChart } from '../charts/QSCVDrillDownChart';
 import { WordCloud } from '../charts/WordCloud';
 import { useDashboardStore } from '../../store/dashboardStore';
 import { getStores, getReviews, generateContentAnalysisData } from '../../data/mockData';
-import type { QSCVTagL1, QSCVTagL2, QSCVTagL3 } from '../../types';
 
 export function BrandSentimentView() {
   const { openStoreDrawer } = useDashboardStore();
@@ -20,28 +19,40 @@ export function BrandSentimentView() {
 
   const { sentiment, qscvTags, positiveWordCloud, negativeWordCloud } = contentData;
 
-  const currentL3Data = useMemo(() => {
-    if (!selectedL1 || !selectedL2) return null;
+  const currentTopStoresData = useMemo(() => {
+    if (!selectedL1) return null;
 
     const l1Item = qscvTags.find(item => item.name === selectedL1);
     if (!l1Item) return null;
 
+    if (!selectedL2) {
+      return {
+        level: 'L1' as const,
+        name: l1Item.name,
+        topStores: l1Item.topStores,
+      };
+    }
+
     const l2Item = l1Item.children.find(item => item.name === selectedL2);
     if (!l2Item) return null;
 
-    return l2Item.children;
-  }, [qscvTags, selectedL1, selectedL2]);
-
-  const selectedL3Item = useMemo(() => {
-    if (!currentL3Data || currentL3Data.length === 0) return null;
-
-    if (selectedL3) {
-      const l3Item = currentL3Data.find(item => item.name === selectedL3);
-      return l3Item || currentL3Data[0];
+    if (!selectedL3) {
+      return {
+        level: 'L2' as const,
+        name: l2Item.name,
+        topStores: l2Item.topStores,
+      };
     }
 
-    return currentL3Data[0];
-  }, [currentL3Data, selectedL3]);
+    const l3Item = l2Item.children.find(item => item.name === selectedL3);
+    if (!l3Item) return null;
+
+    return {
+      level: 'L3' as const,
+      name: l3Item.name,
+      topStores: l3Item.topStores,
+    };
+  }, [qscvTags, selectedL1, selectedL2, selectedL3]);
 
   const handleL1Click = (name: string) => {
     if (selectedL1 === name) {
@@ -55,7 +66,7 @@ export function BrandSentimentView() {
     }
   };
 
-  const handleL2Click = (l1Name: string, l2Name: string) => {
+  const handleL2Click = (_l1Name: string, l2Name: string) => {
     if (selectedL2 === l2Name) {
       setSelectedL2(undefined);
       setSelectedL3(undefined);
@@ -65,11 +76,11 @@ export function BrandSentimentView() {
     }
   };
 
-  const handleL3Click = (l1Name: string, l2Name: string, l3Name: string) => {
+  const handleL3Click = (_l1Name: string, _l2Name: string, l3Name: string) => {
     setSelectedL3(l3Name);
   };
 
-  const handleStoreClick = (storeId: string, storeName: string) => {
+  const handleStoreClick = (storeId: string) => {
     const stores = getStores();
     const reviews = getReviews();
     const store = stores.find(s => s.id === storeId);
@@ -255,18 +266,21 @@ export function BrandSentimentView() {
           <div className="p-6 bg-gray-50">
             <div className="mb-4">
               <h4 className="font-semibold text-gray-900">问题最严重门店 Top 5</h4>
-              {selectedL3Item && (
+              {currentTopStoresData && (
                 <div className="mt-2 text-xs text-gray-500">
-                  当前问题：<span className="font-medium text-red-600">{selectedL3Item.name}</span>
+                  当前分类：<span className="font-medium text-red-600">{currentTopStoresData.name}</span>
+                  <span className="ml-2 text-gray-400">
+                    ({currentTopStoresData.level === 'L1' ? '一级' : currentTopStoresData.level === 'L2' ? '二级' : '三级'}分类)
+                  </span>
                 </div>
               )}
             </div>
-            {selectedL3Item ? (
+            {currentTopStoresData ? (
               <div className="space-y-3">
-                {selectedL3Item.topStores.map((store, index) => (
+                {currentTopStoresData.topStores.map((store, index) => (
                   <button
                     key={store.storeId}
-                    onClick={() => handleStoreClick(store.storeId, store.storeName)}
+                    onClick={() => handleStoreClick(store.storeId)}
                     className="w-full text-left p-3 bg-white rounded-lg hover:shadow-md transition-all border border-gray-100 hover:border-blue-200"
                   >
                     <div className="flex items-center justify-between mb-1">
@@ -283,11 +297,7 @@ export function BrandSentimentView() {
             ) : (
               <div className="text-center py-12">
                 <div className="text-gray-400 text-sm">
-                  {selectedL1
-                    ? (selectedL2
-                        ? '点击左侧条形图查看具体问题的门店排名'
-                        : '请继续选择二级分类')
-                    : '请选择分类查看相关数据'}
+                  请选择左侧分类查看相关门店数据
                 </div>
               </div>
             )}

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Sparkles, Shield, Package } from 'lucide-react';
+import { GlobalFilters } from '../layout/GlobalFilters';
 import { BrandSentimentView } from '../views/BrandSentimentView';
 import { FoodSafetyView } from '../views/FoodSafetyView';
 
@@ -16,6 +17,7 @@ export function ContentAnalysisPage() {
 
   return (
     <div className="space-y-6">
+      <GlobalFilters />
       <div className="bg-white rounded-xl shadow-sm border border-gray-100">
         <div className="border-b border-gray-200">
           <nav className="flex -mb-px">
