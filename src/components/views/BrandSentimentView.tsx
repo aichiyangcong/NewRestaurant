@@ -29,7 +29,7 @@ export function BrandSentimentView() {
       return {
         level: 'L1' as const,
         name: l1Item.name,
-        topStores: l1Item.topStores,
+        topStores: l1Item.topStores || [],
       };
     }
 
@@ -40,7 +40,7 @@ export function BrandSentimentView() {
       return {
         level: 'L2' as const,
         name: l2Item.name,
-        topStores: l2Item.topStores,
+        topStores: l2Item.topStores || [],
       };
     }
 
@@ -50,7 +50,7 @@ export function BrandSentimentView() {
     return {
       level: 'L3' as const,
       name: l3Item.name,
-      topStores: l3Item.topStores,
+      topStores: l3Item.topStores || [],
     };
   }, [qscvTags, selectedL1, selectedL2, selectedL3]);
 
@@ -274,6 +274,9 @@ export function BrandSentimentView() {
                   </span>
                 </div>
               )}
+              <div className="mt-1 text-xs text-gray-400">
+                [调试] L1: {selectedL1 || '无'} | L2: {selectedL2 || '无'} | L3: {selectedL3 || '无'} | 门店数: {currentTopStoresData?.topStores?.length || 0}
+              </div>
             </div>
             {currentTopStoresData ? (
               <div className="space-y-3">
