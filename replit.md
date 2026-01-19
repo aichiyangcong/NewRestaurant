@@ -16,6 +16,19 @@ Key capabilities:
 ## Recent Changes
 
 **January 2026:**
+- **Store Analysis Page (门店分析) - Redesign:**
+  - AIInsightCard at top with store performance summary
+  - 6 KPI metric cards in a single row (grid-cols-6):
+    - Group 1: 门店平均评分, 风险门店数, 优势门店数 → RatingDistributionStackedChart
+    - Group 2: 新增评分数量, 差评率 → StoreHealthBubbleChart (X=avgRating, Y=negativeRate)
+    - Group 3: 24小时平均回复率 → StoreExecutionScatterChart (X=avgRating, Y=replyRate)
+  - Cards are clickable to switch between 3 view groups
+  - Active group cards highlighted, non-active cards dimmed (opacity 0.5)
+  - Global store list table at bottom (fixed, doesn't change with view):
+    - Columns: 区域, 门店, 督导, 星级, 差评数, 24小时回复率, 操作
+    - Click "查看详情" opens StoreDetailDrawer
+  - New data file: storeAnalysisData.ts with metrics, charts data, and getStoreDetailById
+  - New chart components: StoreHealthBubbleChart, StoreExecutionScatterChart, StoreGlobalListTable
 - **Regional Analysis Page (区域分析):**
   - New navigation entry in Sidebar (positioned between 首页 and 门店分析)
   - GlobalFilters integration for date/region/city/group filtering
